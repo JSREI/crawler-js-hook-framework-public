@@ -94,6 +94,7 @@
         }
         const holder = window[functionName];
         window[functionName] = () => {
+            // 这里是脚本的响应断点，已经拦截到响应，跟进去holder函数就行了
             debugger;
             holder(...arguments);
         }
