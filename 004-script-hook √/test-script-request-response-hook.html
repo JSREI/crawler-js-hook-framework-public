@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+<script src="./script-request-response-hook.js"></script>
+<script>
+
+    /**
+     * 通过script和服务器交互，一般用来跨域
+     *
+     * @param url
+     */
+    function scriptRequest(url) {
+        const scriptId = "script-for-request";
+        const oldScript = document.getElementById(scriptId);
+        if (oldScript) {
+            oldScript.remove();
+        }
+
+        const script = document.createElement("script");
+        script.setAttribute("type", "text/javascript");
+        script.setAttribute("id", scriptId);
+        script.onload = script.onreadystatechange = function () {
+            if (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") {
+                console.log(`script request ${url} send success.`);
+            }
+        };
+        script.src = url;
+        document.head.appendChild(script);
+    }
+
+    // scriptRequest("http://www.baidu.com/")
+    // scriptRequest("http://www.qq.com/")
+
+
+
+    function processResult(result) {
+        console.log("接收到了结果: " + JSON.stringify(result));
+        // 如果结果被加密，接下来就是解密逻辑了
+    }
+
+    scriptRequest("http://localhost:10010/?jsonp_callback=processResult&params=foobar")
+
+
+</script>
+</body>
+</html>
