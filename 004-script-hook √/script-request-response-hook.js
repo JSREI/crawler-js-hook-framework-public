@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         script request/response hook
-// @namespace    https://www.cnblogs.com/cc11001100/
+// @namespace    https://github.com/CC11001100/crawler-js-hook-framework-public
 // @version      0.1
-// @description
+// @description  用来给script类型的请求打断点
 // @author       CC11001100
 // @match       *://*/*
 // @run-at      document-start
