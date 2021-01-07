@@ -49,7 +49,7 @@ Hook生效的条件：
 [https://greasyfork.org/zh-CN/scripts/419781-js-cookie-monitor-debugger-hook](https://greasyfork.org/zh-CN/scripts/419781-js-cookie-monitor-debugger-hook)
 ### 3.2.2 手动创建插件
 如果您觉得自动更新太烦，或者有其它的顾虑，可以在这里复制代码：
-[]()
+[https://github.com/CC11001100/crawler-js-hook-framework-public/blob/master/001-cookie-hook/js-cookie-monitor-debugger-hook.js](https://github.com/CC11001100/crawler-js-hook-framework-public/blob/master/001-cookie-hook/js-cookie-monitor-debugger-hook.js)
 review确认没问题之后在油猴的管理面板添加即可。
 
 ## 四、监控Cookie的变化
