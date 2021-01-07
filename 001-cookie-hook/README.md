@@ -78,14 +78,20 @@ review确认没问题之后在油猴的管理面板添加即可。
 ### 5.1 Cookie名字完全等于给定的名字 
 通常情况下我们是会先确定哪些cookie是必须的，比如`foo=bar`是必须的，
 然后我们会通过搜索`set-cookie: foo`或者在console上看monitor打印的名称并通过console的filter来过滤：
+
 ![./images/img_3.png](./images/img_3.png)
+
 然后我们想在这个cookie的值发生变化时进入断点，在油猴里打开这个脚本，
-然后在`debuggerOnChangeAndCookieNameEquals`这个数组中添加cookie的名字， 记得一定要保存： 
+然后在`debuggerOnChangeAndCookieNameEquals`这个数组中添加cookie的名字， 记得一定要按`Ctrl+S`保存： 
+
 ![./images/img_4.png](./images/img_4.png)
+
 因为油猴是在页面加载时将JS注入到页面中的，所以保存完要刷新页面，然后就自动进入断点了：
 ![./images/img_5.png](./images/img_5.png)
+
 调用栈那里红色方框内是本脚本的调用栈忽略即可，有很明显的`userscript.html`特征，
 忽略这些再往前，就是真正有用的代码了！ 
+
 本脚本只能帮你做到这里，后面的征程靠你自己探索啦！
 
 ### 5.2 Cookie名字符合给定的正则  
