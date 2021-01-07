@@ -17,11 +17,14 @@ Hook生效的条件：
 
 ## 2.1 不影响浏览器自带的Cookie管理 
 目前很多Hook脚本Hook姿势并不对，本脚本采用的是一次性、反复Hook，对浏览器自带的Cookie管理无影响：
+
 ![./images/img.png](./images/img.png)
 
 ## 2.2 功能更强 
 除了cookie断点功能之外，增加了Cookie修改监控功能，能够在更宏观的角度分析页面上的Cookie：
+
 ![./images/img_1.png](./images/img_1.png)
+
 （算了，放弃打码了...）
 
 颜色是用于区分操作类型：
@@ -37,6 +40,7 @@ Hook生效的条件：
 理论上只要脚本能够注入到页面上即可，这里采用的是油猴来将JS代码注入到页面上。     
 
 油猴脚本可从Chrome商店安装：  
+
 [https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
 
 如果无法翻墙，可以在百度搜索“Tampermonkey”字样寻找第三方网站下载，但请注意不要安装了虚假的恶意插件，推荐从官方商店安装。 
@@ -47,6 +51,7 @@ Hook生效的条件：
 推荐此方式，从商店安装的脚本有后续版本更新时能够自动更新，本脚本已经在油猴商店上架： 
 
 [https://greasyfork.org/zh-CN/scripts/419781-js-cookie-monitor-debugger-hook](https://greasyfork.org/zh-CN/scripts/419781-js-cookie-monitor-debugger-hook)
+
 ### 3.2.2 手动创建插件
 如果您觉得自动更新太烦，或者有其它的顾虑，可以在这里复制代码：
 
@@ -59,14 +64,19 @@ review确认没问题之后在油猴的管理面板添加即可。
 注意，监控是为了在宏观上有一个全局的认识，并不是为了定位细节
 （通常情况下正确的使用工具才能提高效率哇，当然欢迎大家反馈更有意思的玩法），
 比如打开一个页面时：
+
 ![./images/img_1.png](./images/img_1.png)
+
 根据这张图，我们就能够对这个网站上哪些cookie是JS操作的，什么时间如何操作的有个大致的了解。 
 
 再比如借助monitor观察cookie的变化规律，比如这个页面，根据时间能够看出这个cookie每隔半分钟会被改变一次： 
+
 ![./images/img_2.png](./images/img_2.png)
 
 有时候目标网站可能会反复设置一个cookie，还都是同样的值，这个变量用于忽略此类事件： 
+
 ![./images/img_8.png](./images/img_8.png)
+
 一般保持默认即可。 
 
 
@@ -99,9 +109,13 @@ review确认没问题之后在油猴的管理面板添加即可。
 用cookie名称完全相等来做匹配已经不行了，这时候可以用正则，
 比如百度统计跟踪的cookie `Hm_lvt_cabe4c29404569e674c049d17a42cd56`
 在脚本的`debuggerOnChangeAndCookieNameRegex`中配置正则：
+
 ![./images/img_6.png](./images/img_6.png)
+
 然后刷新页面则进入断点：
+
 ![./images/img_7.png](./images/img_7.png)
+
 当配置了多个的时候可以根据debugger时显示的变量的值来确定进入的到底是哪一个cookie。
 
 ### 5.3 Cookie的值符合给定的正则
