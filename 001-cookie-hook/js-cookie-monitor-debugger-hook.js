@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         JS Cookie Monitor/Debugger Hook
 // @namespace    https://github.com/CC11001100/crawler-js-hook-framework-public
-// @version      0.4
+// @version      0.5
 // @description  用于监控js对cookie的修改，或者在cookie符合给定条件时进入断点
 // @document   https://github.com/CC11001100/crawler-js-hook-framework-public/tree/master/001-cookie-hook
 // @author       CC11001100
@@ -282,8 +282,8 @@
             map.set(key, value);
         }
         // 当不设置expires的时候关闭浏览器就过期
-        const expires = map.get("expires") || 0;
-        return new CookiePair(cookieName, cookieValue, new Date(expires).getTime())
+        const expires = map.get("expires");
+        return new CookiePair(cookieName, cookieValue, expires ? new Date(expires).getTime() : 0)
     }
 
     /**
