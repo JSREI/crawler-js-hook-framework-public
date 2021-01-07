@@ -56,7 +56,7 @@ Hook生效的条件：
 [https://greasyfork.org/zh-CN/scripts/419781-js-cookie-monitor-debugger-hook](https://greasyfork.org/zh-CN/scripts/419781-js-cookie-monitor-debugger-hook)
 
 ### 3.2.2 手动创建插件
-如果您觉得自动更新太烦，或者有其它的顾虑，可以在这里复制代码：
+如果您觉得自动更新太烦，或者有其它的顾虑，可以在这里复制本脚本的代码：
 
 [https://github.com/CC11001100/crawler-js-hook-framework-public/blob/master/001-cookie-hook/js-cookie-monitor-debugger-hook.js](https://github.com/CC11001100/crawler-js-hook-framework-public/blob/master/001-cookie-hook/js-cookie-monitor-debugger-hook.js)
 
@@ -65,7 +65,7 @@ review确认没问题之后在油猴的管理面板添加即可。
 ## 四、监控Cookie的变化
 
 注意，监控是为了在宏观上有一个全局的认识，并不是为了定位细节
-（通常情况下正确的使用工具才能提高效率哇，当然欢迎大家反馈更有意思的玩法），
+（通常情况下正确的使用工具才能提高效率哇，当然一个人的认知是有限的，欢迎大家反馈更有意思的玩法），
 比如打开一个页面时：
 
 ![./images/img_1.png](./images/img_1.png)
@@ -89,8 +89,9 @@ review确认没问题之后在油猴的管理面板添加即可。
 - 过滤条件都是配置在数组中的，所有的条件之间是或的关系，也就是命中任意一个条件都会触发断点。
 
 ### 5.1 Cookie名字完全等于给定的名字 
-通常情况下我们是会先确定哪些cookie是必须的，比如`foo=bar`是必须的，
-然后我们会通过搜索`set-cookie: foo`或者在console上看monitor打印的名称并通过console的filter来过滤：
+通常情况下当遇到Cookie反爬的时候，我们是会先确定哪些cookie是必须的，比如确定了cookie `foo=bar`是必须的，
+然后我们会通过在Chrome的开发者工具network栏搜索`set-cookie: foo`看下是不是访问某个请求时服务器返回的，
+或者在console上看本脚本的monitor功能打印的信息，通过Chrome的console自带的的filter来过滤信息：
 
 ![./images/img_3.png](./images/img_3.png)
 
