@@ -5,7 +5,7 @@
 - 本脚本属于JS逆向辅助工具 
 
 Hook生效的条件：
-- 需要本脚本被成功注入到页面中头部最先执行，脚本都未注入成功自然无法Hook 
+- 需要本脚本被成功注入到页面头部最先执行，脚本都未注入成功自然无法Hook 
 - 需要是JavaScript操作document.cookie赋值来操作Cookie才能够Hook到
   （目前还没碰到不是这么赋值的...）
 
@@ -55,14 +55,14 @@ Hook生效的条件：
 
 [https://greasyfork.org/zh-CN/scripts/419781-js-cookie-monitor-debugger-hook](https://greasyfork.org/zh-CN/scripts/419781-js-cookie-monitor-debugger-hook)
 
-### 3.2.2 手动创建插件
+#### 3.2.2 手动创建插件
 如果您觉得自动更新太烦，或者有其它的顾虑，可以在这里复制本脚本的代码：
 
 [https://github.com/CC11001100/crawler-js-hook-framework-public/blob/master/001-cookie-hook/js-cookie-monitor-debugger-hook.js](https://github.com/CC11001100/crawler-js-hook-framework-public/blob/master/001-cookie-hook/js-cookie-monitor-debugger-hook.js)
 
 review确认没问题之后在油猴的管理面板添加即可。
 
-## 四、监控Cookie的变化
+## 四、监控Cookie的变化（monitor）
 
 ### 4.1 基本用法 
 注意，监控是为了在宏观上有一个全局的认识，并不是为了定位细节
@@ -93,7 +93,7 @@ review确认没问题之后在油猴的管理面板添加即可。
 一般保持默认即可。
 
 
-## 五、 定位Cookie的变化
+## 五、 定位Cookie的变化（debugger）
 注意：
 - 本文中说cookie发生了变化，变化包括添加、删除、更新。 
 - 过滤条件都是配置在数组中的，所有的条件之间是或的关系，也就是命中任意一个条件都会触发断点。
