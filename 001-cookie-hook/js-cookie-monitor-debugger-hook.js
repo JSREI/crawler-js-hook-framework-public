@@ -1,8 +1,9 @@
 // ==UserScript==
 // @name         JS Cookie Monitor/Debugger Hook
 // @namespace    https://github.com/CC11001100/crawler-js-hook-framework-public
-// @version      0.1
+// @version      0.3
 // @description  用于监控js对cookie的修改，或者在cookie符合给定条件时进入断点
+// @document   https://github.com/CC11001100/crawler-js-hook-framework-public/tree/master/001-cookie-hook
 // @author       CC11001100
 // @match       *://*/*
 // @run-at      document-start
