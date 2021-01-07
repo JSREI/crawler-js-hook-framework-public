@@ -5,7 +5,7 @@
 - 本脚本属于JS逆向辅助工具 
 
 Hook生效的条件：
-- 需要油猴脚本被成功注入到页面中，脚本都未注入成功自然无法Hook 
+- 需要本脚本被成功注入到页面中头部最先执行，脚本都未注入成功自然无法Hook 
 - 需要是JavaScript操作document.cookie赋值来操作Cookie才能够Hook到
   （目前还没碰到不是这么赋值的...）
 
@@ -37,18 +37,21 @@ Hook生效的条件：
 
 ## 三、 安装
 ### 3.1 安装油猴插件
-理论上只要脚本能够注入到页面上即可，这里采用的是油猴来将JS代码注入到页面上。     
+理论上只要本脚本的JS代码能够注入到页面上即可，这里采用的是油猴插件来将JS代码注入到页面上。     
 
-油猴脚本可从Chrome商店安装：  
+油猴插件可从Chrome商店安装：  
 
 [https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo](https://chrome.google.com/webstore/detail/tampermonkey/dhdgffkkebhmkfjojejmpbldmpobfkfo)
 
-如果无法翻墙，可以在百度搜索“Tampermonkey”字样寻找第三方网站下载，但请注意不要安装了虚假的恶意插件，推荐从官方商店安装。 
+如果无法翻墙，可以在百度搜索“Tampermonkey”字样寻找第三方网站下载，但请注意不要安装了虚假的恶意插件，推荐从官方商店安装。
+
+其它工具亦可，只要能够将本脚本的JS代码注入到页面最头部执行即可。 
 
 ### 3.2 安装本脚本 
 安装油猴脚本可以从官方商店，也可以拷贝代码自己在本地创建。 
+
 #### 3.2.1 从油猴商店安装本脚本
-推荐此方式，从商店安装的脚本有后续版本更新时能够自动更新，本脚本已经在油猴商店上架： 
+推荐此方式，从油猴商店安装的油猴脚本有后续版本更新时能够自动更新，本脚本已经在油猴商店上架： 
 
 [https://greasyfork.org/zh-CN/scripts/419781-js-cookie-monitor-debugger-hook](https://greasyfork.org/zh-CN/scripts/419781-js-cookie-monitor-debugger-hook)
 
