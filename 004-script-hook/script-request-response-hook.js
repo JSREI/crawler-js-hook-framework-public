@@ -49,7 +49,9 @@
         const result = createElementHolder.apply(this, arguments);
         if (arguments.length && arguments[0].toLowerCase() === "script") {
             // 在设置src时拦截，然后就可以去追溯src是怎么来的了
+            let srcHolder = undefined;
             Object.defineProperty(result, "src", {
+                get: () => srcHolder,
                 set: newValue => {
 
                     if (!urlContainsHook || (newValue.indexOf(urlContainsHook) !== -1)) {
@@ -72,7 +74,7 @@
 
                     }
                     delete result.src;
-                    result.src = newValue;
+                    srcHolder = result.src = newValue;
                 },
                 configurable: true
             });
