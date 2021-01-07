@@ -17,11 +17,11 @@ Hook生效的条件：
 
 ## 2.1 不影响浏览器自带的Cookie管理 
 目前很多Hook脚本Hook姿势并不对，本脚本采用的是一次性、反复Hook，对浏览器自带的Cookie管理无影响：
-![img.png](img.png)
+![./images/img.png](./images/img.png)
 
 ## 2.2 功能更强 
 除了cookie断点功能之外，增加了Cookie修改监控功能，能够在更宏观的角度分析页面上的Cookie：
-![img_1.png](img_1.png)
+![./images/img_1.png](./images/img_1.png)
 （算了，放弃打码了...）
 
 颜色是用于区分操作类型：
@@ -57,14 +57,14 @@ review确认没问题之后在油猴的管理面板添加即可。
 注意，监控是为了在宏观上有一个全局的认识，并不是为了定位细节
 （通常情况下正确的使用工具才能提高效率哇，当然欢迎大家反馈更有意思的玩法），
 比如打开一个页面时：
-![img_1.png](img_1.png)
+![./images/img_1.png](./images/img_1.png)
 根据这张图，我们就能够读这个网站上哪些cookie是JS操作的，什么时间如何操作的有个大致的了解。 
 
 再比如借助monitor观察cookie的变化规律，比如这个页面，根据时间能够看出这个cookie每个半分钟会被改变一次： 
-![img_2.png](img_2.png)
+![./images/img_2.png](./images/img_2.png)
 
 有时候目标网站可能会反复设置一个cookie，还都是同样的值，这个变量用于忽略此类事件： 
-![img_8.png](img_8.png)
+![./images/img_8.png](./images/img_8.png)
 一般保持默认即可。 
 
 
@@ -76,12 +76,12 @@ review确认没问题之后在油猴的管理面板添加即可。
 ### Cookie名字完全等于给定的名字 
 通常情况下我们是会先确定哪些cookie是必须的，比如`foo=bar`是必须的，
 然后我们会通过搜索`set-cookie: foo`或者在console上看monitor打印的名称并通过console的filter来过滤：
-![img_3.png](img_3.png)
+![./images/img_3.png](./images/img_3.png)
 然后我们想在这个cookie的值发生变化时进入断点，在油猴里打开这个脚本，
 然后在`debuggerOnChangeAndCookieNameEquals`这个数组中添加cookie的名字， 记得一定要保存： 
-![img_4.png](img_4.png)
+![./images/img_4.png](./images/img_4.png)
 因为油猴是在页面加载时将JS注入到页面中的，所以保存完要刷新页面，然后就自动进入断点了：
-![img_5.png](img_5.png)
+![./images/img_5.png](./images/img_5.png)
 调用栈那里红色方框内是本脚本的调用栈忽略即可，有很明显的`userscript.html`特征，
 忽略这些再往前，就是真正有用的代码了！ 
 本脚本只能帮你做到这里，后面的征程靠你自己探索啦！
@@ -91,9 +91,9 @@ review确认没问题之后在油猴的管理面板添加即可。
 用cookie名称完全相等来做匹配已经不行了，这时候可以用正则，
 比如百度统计跟踪的cookie `Hm_lvt_cabe4c29404569e674c049d17a42cd56`
 在脚本的`debuggerOnChangeAndCookieNameRegex`中配置正则：
-![img_6.png](img_6.png)
+![./images/img_6.png](./images/img_6.png)
 然后刷新页面则进入断点：
-![img_7.png](img_7.png)
+![./images/img_7.png](./images/img_7.png)
 当配置了多个的时候可以根据debugger时显示的变量的值来确定进入的到底是哪一个cookie。
 
 ### Cookie的值符合给定的正则
