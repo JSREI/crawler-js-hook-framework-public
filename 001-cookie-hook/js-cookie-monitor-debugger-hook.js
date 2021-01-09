@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         JS Cookie Monitor/Debugger Hook
 // @namespace    https://github.com/CC11001100/crawler-js-hook-framework-public
-// @version      0.6
+// @version      0.7
 // @description  用于监控js对cookie的修改，或者在cookie符合给定条件时进入断点
 // @document   https://github.com/CC11001100/crawler-js-hook-framework-public/tree/master/001-cookie-hook
 // @author       CC11001100
@@ -16,6 +16,8 @@
 
         // @since v0.6 断点规则发生了向后不兼容变化，详情请查阅文档
         const debuggerRules = [];
+        // example:
+        // const debuggerRules = ["foo", /foo_\d+/];
 
         // 设置事件断点是否开启，一般保持默认即可
         const enableEventDebugger = {
@@ -154,7 +156,7 @@
                             `${newCookieValue}`
                         ]
                     } else {
-                        return  [
+                        return [
                             normalStyle,
                             `, value = `,
 
@@ -175,7 +177,7 @@
             ];
             console.log(genFormatArray(message), ...message);
 
-            testDebuggerRules(cookieOriginalValue, "update", cookieName, newCookieValue);
+            testDebuggerRules(cookieOriginalValue, "update", cookieName, newCookieValue, cookieValueChanged);
         }
 
         function onCookieAdd(cookieOriginalValue, cookieName, cookieValue) {
@@ -208,51 +210,6 @@
             console.log(genFormatArray(message), ...message);
 
             testDebuggerRules(cookieOriginalValue, "add", cookieName, cookieValue);
-        }
-
-// 根据cookie名字判断你是否需要进入断点
-        function isNeedDebuggerByCookieName(eventName, cookieName) {
-
-            // 如果没有开启此类事件进入断点，则直接忽略即可
-            if (!enableEventDebugger[eventName]) {
-                return;
-            }
-
-            // 名称完全匹配
-            for (let x of debuggerOnChangeAndCookieNameEquals) {
-                if (typeof x === "string" && x === cookieName) {
-                    debugger;
-                } else if (typeof x === "object" && x[eventName] && x[eventName] === cookieName) {
-                    debugger;
-                }
-            }
-
-            // 正则匹配
-            for (let x of debuggerOnChangeAndCookieNameRegex) {
-                if (x instanceof RegExp && x.test(cookieName)) {
-                    debugger;
-                } else if (x[eventName] && x[eventName].test(cookieName)) {
-                    debugger;
-                }
-            }
-        }
-
-        // 根据cookie值判断是否需要进入断点
-        function isNeedDebuggerByCookieValue(eventName, cookieValue) {
-
-            // 如果没有开启此类事件进入断点，则直接忽略即可
-            if (!enableEventDebugger[eventName]) {
-                return;
-            }
-
-            // 此时rule都是DebuggerRule类型的
-            for (let rule of debuggerRules) {
-                if (rule.eventName && rule.eventName !== eventName) {
-                    continue;
-                } else if (!rule.cookieValueFilter) {
-                    continue;
-                }
-            }
         }
 
         function now() {
@@ -335,6 +292,10 @@
             }
 
             testByEventName(eventName) {
+                // 如果此类型的事件断点没有开启，则直接返回
+                if (!enableEventDebugger[eventName]) {
+                    return false;
+                }
                 // 事件不设置则匹配任何事件
                 if (!this.eventName) {
                     return true;
@@ -370,8 +331,13 @@
 
         }
 
-        // 将规则整理为标准
+        // 将规则整理为标准规则
+        // 解析起来并不复杂，但是有点过于灵活，要介绍清楚打的字要远超代码，所以我文档里就随便介绍下完事有缘人会自己读代码的...
         (function standardizingRules() {
+
+            // 用于收集规则配置错误，在解析完所有规则之后一次把事情说完
+            const ruleConfigErrorMessage = [];
+
             const newRules = [];
             while (debuggerRules.length) {
                 const rule = debuggerRules.pop();
@@ -388,7 +354,7 @@
                     let cookieNameFilter = null;
                     let cookieValueFilter = null;
                     if (key === "events") {
-                        events = rule["events"] || "add|delete|update";
+                        events = rule["events"] || "add | delete | update";
                         cookieNameFilter = rule["name"]
                         cookieValueFilter = rule["value"];
                     } else if (key !== "name" && key !== "value") {
@@ -401,13 +367,31 @@
                     }
                     // cookie的名字是必须配置的
                     if (!cookieNameFilter) {
-                        // TODO 提示更友好
-                        throw new Error("Cookie Monitor: 规则配置错误");
+                        const errorMessage = `必须为此条规则 ${JSON.stringify(rule)} 配置一个Cookie Name匹配条件`;
+                        ruleConfigErrorMessage.push(errorMessage);
+                        continue;
                     }
                     events.split("|").forEach(eventName => {
-                        newRules.push(new DebuggerRule(eventName.trim(), cookieNameFilter, cookieValueFilter));
+                        eventName = eventName.trim();
+                        if (eventName !== "add" && eventName !== "delete" && eventName !== "update") {
+                            const errorMessage = `此条规则 ${JSON.stringify(rule)} 的Cookie事件名字配置错误，必须为 add、delete、update 三种之一或者|分隔的组合，您配置的是 ${eventName}，仅忽略此无效事件`;
+                            ruleConfigErrorMessage.push(errorMessage);
+                            return;
+                        }
+                        newRules.push(new DebuggerRule(eventName, cookieNameFilter, cookieValueFilter));
                     })
                 }
+            }
+
+            // 配置错误的规则会被忽略，其它规则照常生效
+            if (ruleConfigErrorMessage.length) {
+                // 错误打印字号要大1.5倍，不信你注意不到
+                const errorMessageStyle = `color: black; background: #FF2121; font-size: ${Math.round(consoleLogFontSize * 1.5)}px; font-weight: bold;`;
+                let errorMessage = now() + "JS Cookie Monitor: 以下Cookie断点规则配置错误，已忽略： \n ";
+                for (let i = 0; i < ruleConfigErrorMessage.length; i++) {
+                    errorMessage += `${i + 1}. ${ruleConfigErrorMessage[i]}\n`;
+                }
+                console.log("%c%s", errorMessageStyle, errorMessage);
             }
 
             // 是否需要合并重复规则呢？
@@ -421,27 +405,44 @@
         /**
          * 当断点停在这里时查看这个方法各个参数的值能够大致了解断点情况
          *
-         * @param setCookieOriginalValue 目标网站使用document.cookie时赋值的原始值是什么
-         * @param eventName 本次是发生了什么事件，add增加新cookie、update更新cookie的值、delete cookie被删除
-         * @param cookieName 本脚本对setCookieOriginalValue解析出的cookie名字
-         * @param cookieValue 本脚本对setCookieOriginalValue解析出的cookie值
+         *   鼠标移动到变量上查看变量的值
+         *
+         * @param setCookieOriginalValue 目标网站使用document.cookie时赋值的原始值是什么，这个值没有 URL decode，
+         *                                  如果要分析它请拷贝其值到外面分析，这里只是提供一种可能性
+         * @param eventName 本次是发生了什么事件，add增加新cookie、update更新cookie的值、delete表示cookie被删除
+         * @param cookieName 本脚本对setCookieOriginalValue解析出的cookie名字，会被URL decode
+         * @param cookieValue 本脚本对setCookieOriginalValue解析出的cookie值，会被URL decode
+         * @param cookieValueChanged 只在update事件时有值，用于帮助快速确定本次update有没有修改cookie的值
          */
-        function testDebuggerRules(setCookieOriginalValue, eventName, cookieName, cookieValue) {
+        function testDebuggerRules(setCookieOriginalValue, eventName, cookieName, cookieValue, cookieValueChanged) {
             for (let rule of debuggerRules) {
-                //rule当前的值表示被什么断点规则匹配到了
+                // rule当前的值表示被什么断点规则匹配到了，可以把鼠标移动到rule变量上查看
                 if (rule.test(eventName, cookieName, cookieValue)) {
                     debugger;
                 }
             }
         }
 
+        /**
+         * 用于在本脚本内部表示一条cookie以方便程序处理
+         * 这里只取了有用的信息，忽略了域名及路径，也许需要加上这两个限制？但现在这个脚本已经够臃肿了...
+         */
         class CookiePair {
+
+            /**
+             *
+             * @param name Cookie的名字
+             * @param value Cookie的值
+             * @param expires Cookie的过期时间
+             */
             constructor(name, value, expires) {
                 this.name = name;
                 this.value = value;
                 this.expires = expires;
             }
+
         }
+
     }
 
 )();
