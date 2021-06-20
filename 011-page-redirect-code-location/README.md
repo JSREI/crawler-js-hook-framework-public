@@ -12,7 +12,7 @@
 ![](markdown-images/README_images/c2f268cf.png)
 然后按F12打开开发者工具，页面在跳转之前进入了断点：
 ![](markdown-images/README_images/02986e81.png)
-然后追调用栈，下一个栈帧就是跳转逻辑：
+然后追调用栈，上一个栈帧就是跳转逻辑：
 ![](markdown-images/README_images/4ca71531.png)
 
 ## 三、注意
