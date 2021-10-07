@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         Storage Monitor/Debugger Hook
-// @namespace    https://github.com/CC11001100/crawler-js-hook-framework-public
+// @namespace    https://github.com/CC11001100/crawler-js-hook-framework-public/tree/master/005-storage-hook
 // @version      0.1
 // @description  用于监控js对localStorage/sessionStorage的任何操作，或者在符合给定条件时进入断点
-// @document   TODO 上传到GitHub之后的路径
+// @document     https://github.com/CC11001100/crawler-js-hook-framework-public/tree/master/005-storage-hook
 // @author       CC11001100
 // @match       *://*/*
 // @run-at      document-start
