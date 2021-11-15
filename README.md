@@ -6,6 +6,7 @@
 - [Script Hook](https://github.com/CC11001100/crawler-js-hook-framework-public/tree/master/004-script-hook)
 - [Storage Hook](https://github.com/CC11001100/crawler-js-hook-framework-public/tree/master/005-storage-hook)
 - [页面跳转代码位置定位通杀方案](https://github.com/CC11001100/crawler-js-hook-framework-public/tree/master/011-page-redirect-code-location#%E9%A1%B5%E9%9D%A2%E8%B7%B3%E8%BD%ACjs%E4%BB%A3%E7%A0%81%E5%AE%9A%E4%BD%8D%E9%80%9A%E6%9D%80%E6%96%B9%E6%A1%88)
+- [jQuery Hook](https://github.com/CC11001100/crawler-js-hook-framework-public/blob/master/020-jQuery-hook/README.md)
 
 ## 通用概念：断点规则
 ### 为什么会需要断点规则？
