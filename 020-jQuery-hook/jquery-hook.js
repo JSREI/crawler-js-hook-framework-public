@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         jQuery Hook
-// @namespace    https://github.com/CC11001100/crawler-js-hook-framework-public
+// @namespace    https://github.com/CC11001100/crawler-js-hook-framework-public/tree/master/020-jQuery-hook
 // @version      0.1
 // @description  用于定位jquery添加的各种事件
-// @document
+// @document     https://github.com/CC11001100/crawler-js-hook-framework-public/blob/master/020-jQuery-hook/README.md
 // @author       CC11001100
 // @match       *://*/*
 // @run-at      document-start
