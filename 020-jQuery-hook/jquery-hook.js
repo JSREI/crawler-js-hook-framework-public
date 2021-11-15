@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         jQuery Hook
 // @namespace    https://github.com/CC11001100/crawler-js-hook-framework-public/tree/master/020-jQuery-hook
-// @version      0.1
-// @description  用于定位jquery添加的各种事件
+// @version      0.2
+// @description  用于快速定位使用jQuery绑定到DOM元素上的事件的代码的真实位置，辅助逆向分析。
 // @document     https://github.com/CC11001100/crawler-js-hook-framework-public/blob/master/020-jQuery-hook/README.md
 // @author       CC11001100
 // @match       *://*/*
