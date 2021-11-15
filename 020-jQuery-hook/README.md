@@ -10,8 +10,11 @@ jQuery曾经引领过一个时代，虽然现已没落，但是很多遗留下�
 ![](markdown-images/README_images/160b9e7a.png)
 不容易定位到事件代码逻辑真实所在的代码位置， 这个小脚本就是解决这个问题的，提供一种简单有效的方式能够快速找到jQuery事件对应的真实代码的位置。
 
-# 三、使用案例
+# 三、安装
+已在油猴商店上架：  
+[https://greasyfork.org/zh-CN/scripts/435556-jquery-hook](https://greasyfork.org/zh-CN/scripts/435556-jquery-hook)
 
+# 四、使用案例
 随便找一个使用jQuery开发的网站，比如这个：  
 [http://wap.wfu.edu.cn:8001/authz/login/slogin](http://wap.wfu.edu.cn:8001/authz/login/slogin)  
 尝试触发登录请求，会发现它的登录密码是被加密的：
@@ -43,7 +46,7 @@ cc11001100_click_5
 ![](markdown-images/README_images/0e8288d7.png)
 至此梳理完毕，以比较科学的方式很轻松就定位到了加密位置。
 
-# 四、原理概述
+# 五、原理概述
 通过hook jQuery的$.fn原型上的一些设置事件的方法来实现，目前支持的方法：
 
 ```text
@@ -55,7 +58,7 @@ cc11001100_click_5
 
 元素每被设置一个事件就会多一个属性，复制这个属性的值，对应着一个全局变量，在console上粘贴，这个就是此元素的此事件对应着的真实代码位置。
 
-# 五、问题反馈
+# 六、问题反馈
 
 如果发现有Hook不到的情况，请在issue中反馈。
 
