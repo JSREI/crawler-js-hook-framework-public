@@ -54,6 +54,7 @@ cc11001100_click_5
 "focusin", "focusout", "hover", "holdReady", "proxy", "ready", "keydown", "keypress",
 "keyup", "live", "load", "mousedown", "mouseenter", "mouseleave", "mousemove", "mouseout",
 "mouseover", "mouseup"
+"on"
 ```
 
 元素每被设置一个事件就会多一个属性，复制这个属性的值，对应着一个全局变量，在console上粘贴，这个就是此元素的此事件对应着的真实代码位置。
